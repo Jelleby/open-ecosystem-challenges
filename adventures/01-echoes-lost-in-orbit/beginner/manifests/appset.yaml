@@ -12,7 +12,7 @@ spec:
           - path: adventures/01-echoes-lost-in-orbit/beginner/manifests/overlays/*
   template:
     metadata:
-      name: echo-server-{{path.basename}}
+      name: echo-server-{{path.basename}} # Use the basename of the path as a suffix
       labels:
         app.kubernetes.io/managed-by: argocd
     spec:
@@ -23,11 +23,11 @@ spec:
         path: adventures/01-echoes-lost-in-orbit/beginner/manifests/overlays/{{path.basename}}
       destination:
         server: https://kubernetes.default.svc
-        namespace: echo-{{path.basename}}
+        namespace: echo-{{path.basename}} # Use the basename of the path as part of the namespace
       syncPolicy:
-        automated:
-          enabled: true
-          prune: true
-          selfHeal: true
+        automated:                        
+          enabled: true                   # Turn on automated syncing
+          prune: true                     # Allow deletion of resources no longer defined in Git                 
+          selfHeal: true                  # Automatically correct drift from the desired state in Git 
         syncOptions:
           - CreateNamespace=true
