@@ -16,7 +16,7 @@ spec:
       labels:
         app.kubernetes.io/managed-by: argocd
     spec:
-      project: echo-{{path.basename}}
+      project: default
       source:
         repoURL: https://github.com/Jelleby/open-ecosystem-challenges.git
         targetRevision: HEAD
@@ -25,5 +25,9 @@ spec:
         server: https://kubernetes.default.svc
         namespace: echo-{{path.basename}}
       syncPolicy:
+        automated:
+          enabled: true
+          prune: true
+          selfHeal: true
         syncOptions:
           - CreateNamespace=true
